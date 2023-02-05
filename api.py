@@ -207,7 +207,7 @@ def online_score_handler(request, ctx, store):
     model = OnlineScoreRequest(**request.arguments)
     # в словарь контекста должна прописываться запись "has" - список полей,
     # которые были не пустые для данного запроса
-    ctx['has'] = [name for name in vars(model) if setattr(model, name) is not None]
+    ctx['has'] = [name for name in vars(model) if getattr(model, name) is not None]
     # если пользователь админ, то нужно всегда отдавать 42
     if request.is_admin:
         response, code = dict(score=42), OK
