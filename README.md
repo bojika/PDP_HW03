@@ -3,7 +3,9 @@
 POST запросами. Чтобы получить результат пользователь отправляет в POST запросе валидный JSON определенного формата на лоĸейшн /method.
 
 ### запуск скрипта ###
-```python api.py -h
+
+```
+python api.py -h
 Usage: api.py [options]
 
 Options:
@@ -11,9 +13,14 @@ Options:
   -p PORT, --port=PORT
   -l LOG, --log=LOG
 ```
+
 ### запуск тестов ###
 ```
-python -m unittest test.py```
-но удобней это сделать через pytest
+python -m unittest test.py
 ```
-python -m pytest -vvv test.py```
+
+но удобней это сделать через pytest
+
+```
+python -m pytest -vvv test.py
+```
