@@ -12,10 +12,6 @@ Options:
   -l LOG, --log=LOG
 ```
 ### запуск тестов ###
-```python -m unittest test.py
-
-```
+```python -m unittest test.py```
 но удобней это сделать через pytest
-```python -m pytest -vvv test.py
-
-```
+```python -m pytest -vvv test.py```
