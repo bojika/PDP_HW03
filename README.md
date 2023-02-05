@@ -13,7 +13,9 @@ Options:
 ```
 ### запуск тестов ###
 ```python -m unittest test.py
+
 ```
 но удобней это сделать через pytest
 ```python -m pytest -vvv test.py
+
 ```
