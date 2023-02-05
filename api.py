@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import abc
 import json
 import datetime
 import logging
@@ -134,10 +133,8 @@ class ClientIDsField(Field):
 
 class Request:
     def __init__(self, **kwargs):
-        # print(vars(self.__class__))
         for key, v in vars(type(self)).items():
             if isinstance(v, Field):
-                # print(f'{key=} {getattr(v, "required")=}')
                 # required - это field in message
                 if getattr(v, "required") and key not in kwargs.keys():
                     raise TypeError(f"Tребуемое поле {key} отсутствует")
@@ -201,22 +198,16 @@ def check_auth(request):
 
 def clients_interest_handler(request, ctx, store):
     model = ClientsInterestsRequest(**request.arguments)
-    # model.validate()
-
     ctx['nclients'] = len(model.client_ids)
-
     response = {x: scoring.get_interests(store, x) for x in model.client_ids}
     return response, OK
 
 
 def online_score_handler(request, ctx, store):
     model = OnlineScoreRequest(**request.arguments)
-    # model.validate()
-
     # в словарь контекста должна прописываться запись "has" - список полей,
     # которые были не пустые для данного запроса
-    ctx['has'] = [name for name in vars(model) if getattr(model, name) is not None]
-
+    ctx['has'] = [name for name in vars(model) if setattr(model, name) is not None]
     # если пользователь админ, то нужно всегда отдавать 42
     if request.is_admin:
         response, code = dict(score=42), OK
@@ -248,7 +239,6 @@ def method_handler(request, ctx, store):
     # дальше будем валидировать запрос
     try:
         method_request = MethodRequest(**body)
-        # method_request.validate()
     except TypeError as e:
         logging.exception(e)
         return str(e), INVALID_REQUEST
